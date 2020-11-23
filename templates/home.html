@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Hello world! This home page</h1>
+<p class="q"> {{ object_list }}</p>
+<ul>
+    {% for obj in object_list %}
+        <li><a href="{{ obj.url }}">{{ obj.title }}</a><p>{{ obj.description }}</p></li>
+        {% empty %}
+        <li>Sorry, it's not</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
