@@ -1,0 +1,39 @@
+{% extends "test_project/base.html" %}
+
+
+{%  block content %}
+    {% for obj in object_list %}
+<div class="card">
+  <div class="card-header">
+   <a href="{{ obj.url }}">{{ obj.title }}</a>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{ obj.description }}</p>
+      <p class="city">{{ obj.city.name }}|{{ obj.language.name }} |{{ obj.timestamp }} </p>
+  </div>
+        {% empty %}
+          <div class="card-body">
+            <p class="card-text">Not result</p>
+          </div>
+</div>
+    {% endfor %}
+<div class="row" >
+    <div class="col-6 mx-auto">
+    <form>
+ <!-- <div class="form-group">
+    <label for="exampleInputEmail1">Город</label>
+    <input type="text" class="form-control" name="city">
+      <label for="exampleInputEmail1">Язык программирования</label>
+      <input type="text" class="form-control" name="language">
+  </div>
+  <button type="submit" class="btn btn-primary">Отправить</button>
+-->
+        <div class="form-group">
+    {{ form.as_p }}
+     <button type="submit" class="btn btn-primary">Найти</button>
+        </div>
+    </form>
+    </div></div>
+
+{% endblock %}
+
