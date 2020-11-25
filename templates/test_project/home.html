@@ -8,12 +8,12 @@
    <a href="{{ obj.url }}">{{ obj.title }}</a>
   </div>
   <div class="card-body">
+    <p class="card-text alert-success">{{ obj.company }}</p>
     <p class="card-text">{{ obj.description }}</p>
       <p class="city">{{ obj.city.name }}|{{ obj.language.name }} |{{ obj.timestamp }} </p>
   </div>
         {% empty %}
-          <div class="card-body">
-            <p class="card-text">Not result</p>
+    <h3>К сожалению, ничего ен найдено!!!</h3>
           </div>
 </div>
     {% endfor %}
