@@ -31,14 +31,13 @@ def site_126(url):
         errors.append({'url': url, 'text': resp.text})
 
     print(data)
-    with open ('../new_file_126.csv', 'w', newline ='') as file:
+    with open('../new_file_126.csv', 'w', newline ='') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerow(data)
 
     h = codecs.open('../error_126.txt', 'w', 'utf-8')
     h.write(str(errors))
     h.close()
-
 
 
 def site_joblab(url):
@@ -99,8 +98,7 @@ def site_1777(url):
     else:
         errors.append({'url': url, 'text': resp.text})
 
-
-    with open ('../new_file_1777.csv', 'w', newline = '') as file:
+    with open('../new_file_1777.csv', 'w', newline = '') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerow(data)
 
