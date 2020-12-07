@@ -6,9 +6,8 @@ import user_agent_list as ua
 
 
 
-
 def site_126(url):
-    http = 'https:'
+
     data = []
     errors = []
     resp = requests.get(url, ua.rand_user_agent())
@@ -23,21 +22,21 @@ def site_126(url):
             firma_list = div.find('div', class_='sr-2-item-address').text
 
             data.append({'title':title.replace('\n', ''),
-                         'url':http + href,
+                         'url': href,
                          'description': title.replace('\n', ''),
                          'company':firma_list.strip(),
                          })
     else:
         errors.append({'url': url, 'text': resp.text})
-
-    print(data)
-    with open('../new_file_126.csv', 'w', newline ='') as file:
-        csv_writer = csv.writer(file)
-        csv_writer.writerow(data)
-
-    h = codecs.open('../error_126.txt', 'w', 'utf-8')
-    h.write(str(errors))
-    h.close()
+    return data, errors
+    # print(data)
+    # with open('../new_file_126.csv', 'w', newline ='') as file:
+    #     csv_writer = csv.writer(file)
+    #     csv_writer.writerow(data)
+    #
+    # h = codecs.open('../error_126.txt', 'w', 'utf-8')
+    # h.write(str(errors))
+    # h.close()
 
 
 def site_joblab(url):
@@ -45,7 +44,7 @@ def site_joblab(url):
     data = []
     errors = []
     resp = requests.get(url, ua.rand_user_agent())
-
+    print(resp)
     if resp.status_code == 200:
         soup = BS(resp.content, 'html.parser')
         card_vac = soup.find_all('td', class_='td-to-div')
@@ -60,7 +59,7 @@ def site_joblab(url):
                 description = div.find('p', class_='prof').text
 
                 data.append({'title': title,
-                             'url': href,
+                             'url': http + href,
                              'description': description,
                              'company': firma_list,
                              })
@@ -68,14 +67,14 @@ def site_joblab(url):
     else:
         errors.append({'url': url, 'text': resp.text})
 
-
-    with open ('../new_joblab.csv', 'w', newline ='') as file:
-        csv_writer = csv.writer(file)
-        csv_writer.writerow(data)
-
-    h = codecs.open('../error_joblab.txt', 'w', 'utf-8')
-    h.write(str(errors))
-    h.close()
+    return data, errors
+    # with open ('../new_joblab.csv', 'w', newline ='') as file:
+    #     csv_writer = csv.writer(file)
+    #     csv_writer.writerow(data)
+    #
+    # h = codecs.open('../error_joblab.txt', 'w', 'utf-8')
+    # h.write(str(errors))
+    # h.close()
 
 
 def site_1777(url):
@@ -83,6 +82,7 @@ def site_1777(url):
     data = []
     errors = []
     resp = requests.get(url, ua.rand_user_agent())
+    print(resp)
     if resp.status_code == 200:
         soup = BS(resp.content, 'html.parser')
         card_vac = soup.find_all('table', class_='view_ads')
@@ -97,11 +97,11 @@ def site_1777(url):
                          })
     else:
         errors.append({'url': url, 'text': resp.text})
-
-    with open('../new_file_1777.csv', 'w', newline = '') as file:
-        csv_writer = csv.writer(file)
-        csv_writer.writerow(data)
-
-    h = codecs.open('../error_1777.txt', 'w', 'utf-8')
-    h.write(str(errors))
-    h.close()
+    return data, errors
+    # with open('../new_file_1777.csv', 'w', newline = '') as file:
+    #     csv_writer = csv.writer(file)
+    #     csv_writer.writerow(data)
+    #
+    # h = codecs.open('../error_1777.txt', 'w', 'utf-8')
+    # h.write(str(errors))
+    # h.close()
