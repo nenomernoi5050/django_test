@@ -2,6 +2,8 @@ import random
 import requests
 import news_test_project.user_agent_list as ua
 import pymysql
+import asyncio
+import aiohttp
 
 
 # https://yadi.sk/d/vRswyVOVdzOf7Q
@@ -31,32 +33,42 @@ def insert_true(url):
     connect.commit()
 
 
-def get_url(res):
-    url = "https://yadi.sk/d/{}?w=1".format(res)
+async def get_url(res):
+
+    char_last_simbol = 'wgAQ'
+    char_end = random.choice(char_last_simbol)
+    url = "https://yadi.sk/d/{}{}?w=1".format(res, char_end)
     if find_db(url) == False:
-        resp = requests.get(url,  ua.rand_user_agent())
-        if resp.status_code == 200:
-            insert_true(url)
-        else:
-            print(url)
-            set_db(url)
+        # resp = requests.get(url,  ua.rand_user_agent())
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                if resp.status == 200:
+                    insert_true(url)
+                else:
+                    print(url)
+                    set_db(url)
     else:
         print(f'{url} - существует')
 
 
 
-def main_func(quantity, lenght,chars):
+async def main_func(quantity, lenght,chars):
     for i in range(quantity):
         res = ''
         for n in range(lenght):
             res +=random.choice(chars)
-        get_url(res)
+        await get_url(res)
+
 
 
 if __name__ == '__main__':
+
     connect = pymysql.connect(host='localhost', user='root', password='', db='yandex', port=3306)
     cursor = connect.cursor()
-    quantity = 10000  # Количество ссылок
-    lenght = 14  # Длина ссылки
+    quantity = 1000  # Количество ссылок
+    lenght = 13  # Длина ссылки
     chars = '-_abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-    main_func(quantity, lenght, chars)
+    futures = [main_func(quantity, lenght, chars)]
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(futures))
+    # main_func(quantity, lenght, chars)
