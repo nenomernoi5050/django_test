@@ -38,17 +38,17 @@ async def get_url(res):
     char_last_simbol = 'wgAQ'
     char_end = random.choice(char_last_simbol)
     url = "https://yadi.sk/d/{}{}?w=1".format(res, char_end)
-    if find_db(url) == False:
+    # if find_db(url) == False:
         # resp = requests.get(url,  ua.rand_user_agent())
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as resp:
-                if resp.status == 200:
-                    insert_true(url)
-                else:
-                    print(url)
-                    set_db(url)
-    else:
-        print(f'{url} - существует')
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            if resp.status == 200:
+                insert_true(url)
+            else:
+                print(url)
+
+    # else:
+    #     print(f'{url} - существует')
 
 
 
