@@ -1,18 +1,21 @@
+# ###### IMPORT #####
 from news_test_project.parsers import *
 import os, sys
 
 
 proj = os.path.dirname(os.path.abspath('manage.py'))
 sys.path.append((proj))
-# os.environ['DJANGO_SETTING_MODULE'] = 'news.settings'
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "news.settings")
-import django
 
+
+# ###### IMPORT #####
+import django
 django.setup()
 from  django.db import DatabaseError
-
 from news_test_project.parsers import *
 from news_test_project.models import Vacancy, City, Language
+
+
 
 parser = (
     (site_126, 'https://126.ru/stavropol/rabota/it-telekom-kompyutery/'),
